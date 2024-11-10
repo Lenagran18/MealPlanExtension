@@ -1,6 +1,6 @@
-document.getElementById("recipe-form").addEventListener("submit", function (event) {
+document.getElementById("search-form").addEventListener("submit", function (event) {
     event.preventDefault();
-    const ingredients = document.getElementById("ingredients").value;
+    const ingredients = document.getElementById("search-bar").value;
 
     // Format the search query
     const query = `${ingredients.split(",").map((ing) => ing.trim()).join(" ")} recipes`;
