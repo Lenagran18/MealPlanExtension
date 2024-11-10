@@ -1,3 +1,8 @@
+document.getElementById("close-button").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.close();
+});
+
 document.getElementById("search-form").addEventListener("submit", function (event) {
     event.preventDefault();
     const ingredients = document.getElementById("search-bar").value;
