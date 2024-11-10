@@ -14,3 +14,11 @@ document.getElementById("search-form").addEventListener("submit", function (even
     // Open a new tab with the search results
     chrome.tabs.create({ url: url });
 });
+
+//Meal Categories
+const breakfastButton = document.getElementById("breakfast-button");
+
+breakfastButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "breakfast.html";
+});
