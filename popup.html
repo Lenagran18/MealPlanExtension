@@ -6,15 +6,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title><Meal Plan Extention></title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <img src="assets/icon.png" alt="Recipe Icon" id="popup-image">
+  <header class="header">
+    <img src="assets/icon.png" alt="Recipe Icon" id="header-image">
+    <div id="title">
+      <h2>MEAL</h2>
+      <h2>PLAN</h2>
+    </div>
+  </header>
 
   <div id="popup">
     <h3>Whats for dinner?</h3>
-    <form id="recipe-form">
-      <input type="text" id="ingredients" placeholder="Enter ingredients, separated by commas">
-      <button type="submit">Search Recipes</button>
+    <form id="search-form">
+      <input type="text" id="search-bar" placeholder="Enter ingredients, separated by commas">
+      <button type="submit" id="search-button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </form> 
   </div>
 
