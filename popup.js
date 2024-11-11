@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const categoryIcons = {
         breakfast: "assets/breakfast.png",
+        lunch: "assets/lunch.png",
+        dinner: "assets/dinner.png",
+        dessert: "assets/dessert.png",
+        drinks: "assets/drinks.png",
     };
 
     //Close button functionality
@@ -32,23 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //Meal Categories
-    const breakfastButton = document.querySelector(".category-button");
+    const categoryButtons = document.querySelectorAll(".category-button");
 
-    breakfastButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        categoryTitle.textContent = "Breakfast";
-        categoryIcon.src = categoryIcons.breakfast;
+    categoryButtons.forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        // Hide the main view and show the saved view
-        mainView.style.display = "none";
-        savedView.style.display = "block";
+            const category = button.getAttribute("data-category");
+            categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            categoryIcon.src = categoryIcons[category];
+
+            // Hide the main view and show the saved view
+            mainView.style.display = "none";
+            savedView.style.display = "block";
+        });
     });
 
-    //Back buton functionality
+    //Back button functionality
     backButton.addEventListener("click", function (event) {
         event.preventDefault();
         savedView.style.display = "none";
         mainView.style.display = "block";
     });
-
 });
