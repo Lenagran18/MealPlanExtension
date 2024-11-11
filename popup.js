@@ -1,24 +1,43 @@
-document.getElementById("close-button").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.close();
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const mainView = document.getElementById("main-view");
+    const savedView = document.getElementById("meal-categories-view");
+    const categoryTitle = document.getElementById("category-title");
+    const categoryIcon = document.getElementById("category-icon");
 
-document.getElementById("search-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const ingredients = document.getElementById("search-bar").value;
+    const categoryIcons = {
+        breakfast: "assets/breakfast.png",
+    };
 
-    // Format the search query
-    const query = `${ingredients.split(",").map((ing) => ing.trim()).join(" ")} recipes`;
-    const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    //Close button functionality
+    document.getElementById("close-button").addEventListener("click", function (event) {
+        event.preventDefault();
+        window.close();
+    });
+   
+    //Search form functionality
+    document.getElementById("search-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const ingredients = document.getElementById("search-bar").value;
 
-    // Open a new tab with the search results
-    chrome.tabs.create({ url: url });
-});
+        // Format the search query
+        const query = `${ingredients.split(",").map((ing) => ing.trim()).join(" ")} recipes`;
+        const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
-//Meal Categories
-const breakfastButton = document.getElementById("breakfast-button");
+        // Open a new tab with the search results
+        chrome.tabs.create({ url: url });
+    });
 
-breakfastButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "breakfast.html";
+    //Meal Categories
+    const breakfastButton = document.querySelector(".category-button");
+
+    breakfastButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        categoryTitle.textContent = "Breakfast";
+        categoryIcon.src = categoryIcons.breakfast;
+
+        // Hide the main view and show the saved view
+        mainView.style.display = "none";
+        savedView.style.display = "block";
+    });
+
 });
