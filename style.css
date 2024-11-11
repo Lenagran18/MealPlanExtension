@@ -89,6 +89,7 @@ h3 {
     right:5px;
     background-color: #B4D6E7;
     border: none;
+    cursor: pointer;
 }
 
 #search-button:hover {
@@ -102,6 +103,36 @@ h3 {
 #search-button i {
     font-size: 20px;
     color: #253237;
+}
+
+.category-button {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.category-button img {
+    width: 65px;
+    height: 65px;
+    border: 1px solid #B4D6E7;
+}
+.top-buttons {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.bottom-buttons {
+ display: grid;
+    grid-template-columns: auto auto; 
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
 }
 
 img {
