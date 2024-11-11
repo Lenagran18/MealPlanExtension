@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const mainView = document.getElementById("main-view");
     const savedView = document.getElementById("meal-categories-view");
+    const backButton = document.getElementById("back-button");
     const categoryTitle = document.getElementById("category-title");
     const categoryIcon = document.getElementById("category-icon");
 
@@ -38,6 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Hide the main view and show the saved view
         mainView.style.display = "none";
         savedView.style.display = "block";
+    });
+
+    //Back buton functionality
+    backButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        savedView.style.display = "none";
+        mainView.style.display = "block";
     });
 
 });
