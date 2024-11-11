@@ -53,7 +53,7 @@ h3 {
     color: #253237;
 }
 
-#popup {
+#search {
     display: flex;
     flex-direction: column;
     justify-content: center;

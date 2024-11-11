@@ -11,28 +11,30 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <header class="header">
-    <img src="assets/icon.png" alt="Recipe Icon" id="header-image">
-    <div id="title">
-      <h2>MEAL</h2>
-      <h2>PLAN</h2>
-    </div>
-    <button type="click" id="close-button">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </header>
-
-  <div id="popup">
-    <h3>Whats for dinner?</h3>
-    <form id="search-form">
-      <input type="text" id="search-bar" placeholder="Enter ingredients, separated by commas">
-      <button type="submit" id="search-button">
-        <i class="fa-solid fa-magnifying-glass"></i>
+  <div id="main-veiw">
+    <header class="header">
+      <img src="assets/icon.png" alt="Recipe Icon" id="header-image">
+      <div id="title">
+        <h2>MEAL</h2>
+        <h2>PLAN</h2>
+      </div>
+      <button type="click" id="close-button">
+        <i class="fa-solid fa-xmark"></i>
       </button>
-    </form> 
+    </header>
 
-    <div id="meal-categories">
+    <div id="search">
+      <h3>Whats for dinner?</h3>
+      <form id="search-form">
+        <input type="text" id="search-bar" placeholder="Enter ingredients, separated by commas">
+          <button type="submit" id="search-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+      </form> 
+
+      <div id="meal-categories">
         <button type="click" id="breakfast-button">Breakfast</button>
+      </div>
     </div>
   </div>
 
