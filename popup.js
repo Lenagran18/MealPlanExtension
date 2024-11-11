@@ -10,9 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //Close button functionality
-    document.getElementById("close-button").addEventListener("click", function (event) {
-        event.preventDefault();
-        window.close();
+    const closeButton = document.querySelectorAll(".close-button");
+    closeButton.forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.close();
+        });
     });
    
     //Search form functionality
