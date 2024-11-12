@@ -7,7 +7,7 @@ body {
   color: #253237;
 }
 
-.header {
+#header {
     display: flex;
     padding-bottom: 20px;
 }
@@ -53,12 +53,12 @@ h3 {
     color: #253237;
 }
 
-#search {
+.popup-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 237px;
+    padding-bottom: 15px;
     background-color: #f0f6ff;
     color: #253237;
 }
@@ -127,7 +127,7 @@ h3 {
 }
 
 .bottom-buttons {
- display: grid;
+    display: grid;
     grid-template-columns: auto auto; 
     grid-gap: 10px;
     justify-content: center;
@@ -155,4 +155,26 @@ img {
 #back-button i {
     font-size: 20px;
     color: #253237;
+}
+
+#meal-categories-header {
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#category-icon {
+    width: 75px;
+    height: 75px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -20px;
+}
+
+#category-title {
+    text-align: center;
+    padding-left: 10px;
+    font-family: Tahoma, Arial, sans-serif;
+    text-shadow: 0px 2px #2532374f;
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="main-view">
-    <header class="header">
+    <header id="header">
       <img src="assets/icon.png" alt="Recipe Icon" id="header-image">
       <div id="title">
         <h2>MEAL</h2>
@@ -23,7 +23,7 @@
       </button>
     </header>
 
-    <div id="search">
+    <div class="popup-body">
       <h3>Whats for dinner?</h3>
       <form id="search-form">
         <input type="text" id="search-bar" placeholder="Enter ingredients, separated by commas">
@@ -55,11 +55,16 @@
       <i class="fa-solid fa-arrow-left"></i>
     </button>
 
-    <div id="category-header">
+    <div id="meal-categories-header">
       <img id="category-icon" alt="Category Icon">
       <h2 id="category-title"></h2>
     </div>
     <ul id="saved-recipes"></ul>
+
+    <div class="popup-body">
+        <h3>Recipes</h3>
+        <ul id="recipes"></ul>
+    </div>
   </div>
 
 <script src="popup.js"></script>
