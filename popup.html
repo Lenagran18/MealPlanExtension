@@ -23,19 +23,15 @@
       </button>
 
       <button id="save-recipe-button">
-     <i class="fa-regular fa-square-plus"></i>
+        <i class="fa-regular fa-square-plus"></i>
       </button>
 
-      <div id="category-select" style="display: none;">
-        <label for="category-dropdown">Choose a category:</label>
-        <select id="category-dropdown">
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
-          <option value="dessert">Dessert</option>
-          <option value="drinks">Drinks</option>
-        </select>
-        <button id="confirm-save-button">Save Recipe</button>
+      <div id="category-dropdown" class="popup-menu">
+        <div class="category-option" data-category="breakfast">Breakfast</div>
+        <div class="category-option" data-category="lunch">Lunch</div>
+        <div class="category-option" data-category="dinner">Dinner</div>
+        <div class="category-option" data-category="dessert">Dessert</div>
+        <div class="category-option" data-category="drinks">Drinks</div>
       </div>
       
     </header>

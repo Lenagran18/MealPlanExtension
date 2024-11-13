@@ -4,11 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const backButton = document.getElementById("back-button");
     const categoryTitle = document.getElementById("category-title");
     const categoryIcon = document.getElementById("category-icon");
-    const recipeList = document.getElementById("recipe-list");
     const saveRecipeButton = document.getElementById("save-recipe-button");
     const categorySelect = document.getElementById("category-select");
-    const confirmSaveButton = document.getElementById("confirm-save-button");
     const categoryDropdown = document.getElementById("category-dropdown");
+    const categoryOptions = document.querySelectorAll(".category-option");
 
     const categoryIcons = {
         breakfast: "assets/breakfast.png",
@@ -32,6 +31,32 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         savedView.style.display = "none";
         mainView.style.display = "block";
+    });
+
+    //Toggle save dropdown
+    saveRecipeButton.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent click events from bubbling up
+        categoryDropdown.style.display = categoryDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    //Hide save dropdown when clicking outside of it
+    document.addEventListener("click", (event) => {
+        if (event.target !== saveRecipeButton && !categoryDropdown.contains(event.target)) {
+            categoryDropdown.style.display = "none";
+        }
+    });
+
+    //Save recipe to selected category
+    categoryOptions.forEach((option) => {
+        option.addEventListener("click", function () {
+            const selectedCategory = option.getAttribute("data-category");
+
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                const currentUrl = tabs[0].url;
+                saveRecipes(currentUrl, selectedCategory);
+                categorySelect.style.display = "none";
+            });
+        });
     });
    
     //Search form functionality
@@ -63,20 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
     }
-
-    saveRecipeButton.addEventListener("click", () => {
-        categorySelect.style.display = "block";
-    });
-
-    confirmSaveButton.addEventListener("click", () => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            const currentUrl = tabs[0].url;
-            const selectedCategory = categoryDropdown.value;
-            saveRecipes(currentUrl, selectedCategory);
-            categorySelect.style.display = "none";
-        });
-    });
-
 
     //Meal Categories
     const categoryButtons = document.querySelectorAll(".category-button");
