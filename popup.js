@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoryTitle = document.getElementById("category-title");
     const categoryIcon = document.getElementById("category-icon");
     const saveRecipeButton = document.getElementById("save-recipe-button");
-    const categorySelect = document.getElementById("category-select");
     const categoryDropdown = document.getElementById("category-dropdown");
     const categoryOptions = document.querySelectorAll(".category-option");
 
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                 const currentUrl = tabs[0].url;
                 saveRecipes(currentUrl, selectedCategory);
-                categorySelect.style.display = "none";
+                categoryDropdown.style.display = "none";
             });
         });
     });
@@ -77,14 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
         chrome.storage.local.get([category], (result) => {
             let recipes = result[category] || [];
 
-            if (!recipes.includes(url)) {
-                recipes.push(url);
+            if (!recipes.includes(url)) { //Does url exist in recipes
+                recipes.push(url); //Add recipe url
                 chrome.storage.local.set({ [category]: recipes }, () => {
-                    alert(`Recipe saved in ${category}!`);
                     console.log("Recipe saved in", category);
                 });
-            } else {
-                alert("Recipe already saved in this category!");
             }
         })
     }
