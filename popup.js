@@ -21,6 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
             window.close();
         });
     });
+
+    //Back button functionality
+    backButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        savedView.style.display = "none";
+        mainView.style.display = "block";
+    });
    
     //Search form functionality
     document.getElementById("search-form").addEventListener("submit", function (event) {
@@ -50,12 +57,5 @@ document.addEventListener("DOMContentLoaded", () => {
             mainView.style.display = "none";
             savedView.style.display = "block";
         });
-    });
-
-    //Back button functionality
-    backButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        savedView.style.display = "none";
-        mainView.style.display = "block";
     });
 });
