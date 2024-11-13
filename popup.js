@@ -99,6 +99,30 @@ document.addEventListener("DOMContentLoaded", () => {
             // Hide the main view and show the saved view
             mainView.style.display = "none";
             savedView.style.display = "block";
+
+            displaySavedRecipes(category);
         });
     });
+
+    //Display saved recipes
+    function displaySavedRecipes(category) {
+        const savedRecipes = document.getElementById("saved-recipes");
+        chrome.storage.local.get([category], (result) => {
+            console.log(result); 
+            const recipes = result[category] || [];
+            savedRecipes.innerHTML = "";
+
+            recipes.forEach((recipeUrl) => {
+                const listItem = document.createElement("li");
+
+                const recipeLink = document.createElement("a");
+                recipeLink.href = recipeUrl;
+                recipeLink.textContent = recipeUrl;
+                recipeLink.target = "_blank";
+
+                listItem.appendChild(recipeLink);
+                savedRecipes.appendChild(listItem);
+            });
+        });
+    }
 });

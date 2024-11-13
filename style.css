@@ -221,3 +221,26 @@ img {
     font-family: Tahoma, Arial, sans-serif;
     text-shadow: 0px 2px #2532374f;
 }
+
+#saved-recipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#saved-recipes li {
+    margin-bottom: 10px; 
+    width: 100%; 
+}
+
+#saved-recipes a {
+    text-decoration: none;
+    color: #253237; 
+    display: block;
+    width: 90%; 
+    overflow: hidden;
+}
