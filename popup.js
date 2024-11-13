@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const backButton = document.getElementById("back-button");
     const categoryTitle = document.getElementById("category-title");
     const categoryIcon = document.getElementById("category-icon");
+    const recipeList = document.getElementById("recipe-list");
+    const saveRecipeButton = document.getElementById("save-recipe-button");
+    const categorySelect = document.getElementById("category-select");
+    const confirmSaveButton = document.getElementById("confirm-save-button");
+    const categoryDropdown = document.getElementById("category-dropdown");
 
     const categoryIcons = {
         breakfast: "assets/breakfast.png",
@@ -41,6 +46,37 @@ document.addEventListener("DOMContentLoaded", () => {
         // Open a new tab with the search results
         chrome.tabs.create({ url: url });
     });
+
+    //Saved Recipes
+    function saveRecipes(url, category) {
+        chrome.storage.local.get([category], (result) => {
+            let recipes = result[category] || [];
+
+            if (!recipes.includes(url)) {
+                recipes.push(url);
+                chrome.storage.local.set({ [category]: recipes }, () => {
+                    alert(`Recipe saved in ${category}!`);
+                    console.log("Recipe saved in", category);
+                });
+            } else {
+                alert("Recipe already saved in this category!");
+            }
+        })
+    }
+
+    saveRecipeButton.addEventListener("click", () => {
+        categorySelect.style.display = "block";
+    });
+
+    confirmSaveButton.addEventListener("click", () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const currentUrl = tabs[0].url;
+            const selectedCategory = categoryDropdown.value;
+            saveRecipes(currentUrl, selectedCategory);
+            categorySelect.style.display = "none";
+        });
+    });
+
 
     //Meal Categories
     const categoryButtons = document.querySelectorAll(".category-button");
