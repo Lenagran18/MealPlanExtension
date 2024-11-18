@@ -104,9 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    //Display saved recipes
+    //Delete individual recipe
+    function deleteRecipe(url, category) {
+        chrome.storage.local.get([category], (result) => {
+            let recipes = result[category] || [];
+            const index = recipes.indexOf(url);
+
+            if (index > -1) {
+                recipes.splice(index, 1);
+                chrome.storage.local.set({ [category]: recipes }, () => {
+                    console.log("Recipe deleted from", category);
+                    displaySavedRecipes(category); //Refresh
+                });
+            }
+        });
+    }
+
+    //Display saved recipes with delete button
     function displaySavedRecipes(category) {
         const savedRecipes = document.getElementById("saved-recipes");
+        const singleSavedRecipe = document.getElementById("single-saved-recipe");
+
         chrome.storage.local.get([category], (result) => {
             console.log(result); 
             const recipes = result[category] || [];
@@ -114,13 +132,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             recipes.forEach((recipeUrl) => {
                 const listItem = document.createElement("li");
+                listItem.className = "recipe-item";
 
                 const recipeLink = document.createElement("a");
                 recipeLink.href = recipeUrl;
                 recipeLink.textContent = recipeUrl;
                 recipeLink.target = "_blank";
 
+                //Clone the single-saved-recipe template
+                const recipeControls = singleSavedRecipe.cloneNode(true);
+                recipeControls.style.display = "block"; // Make it visible
+
+                //Delete functionality
+                const deleteButton = recipeControls.querySelector("#delete-button");
+                deleteButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    deleteRecipe(recipeUrl, category);
+                });
+
                 listItem.appendChild(recipeLink);
+                listItem.appendChild(recipeControls);
                 savedRecipes.appendChild(listItem);
             });
         });
