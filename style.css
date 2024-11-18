@@ -226,24 +226,25 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left;
-    padding-bottom: 15px;
     width: 300px;
 }
 
 #saved-recipes li {
     margin-bottom: 10px; 
-    width: 88%; 
+    width: 86.5%; 
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 10px;
+    background-color: #B4D6E7;
+    box-sizing: border-box;
 }
 
 #saved-recipes a {
     text-decoration: none;
     color: #253237; 
     display: block;
-    width: 90%; 
+    width: 260px;
     overflow: hidden;
 }
 
@@ -252,6 +253,7 @@ img {
     flex-direction: column;
     gap: 4px;
     min-width: fit-content;
+    display: none;
 }
 
 #delete-button, #move-button {
