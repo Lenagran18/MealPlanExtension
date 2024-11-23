@@ -243,6 +243,8 @@ img {
 #saved-recipes a {
     text-decoration: none;
     color: #253237; 
+    font-size: 13px;
+    font-weight: bold;
     display: block;
     width: 260px;
     overflow: hidden;
