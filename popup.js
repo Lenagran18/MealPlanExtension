@@ -51,8 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const selectedCategory = option.getAttribute("data-category");
 
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                const currentUrl = tabs[0].url;
-                saveRecipes(currentUrl, selectedCategory);
+                const currentTab = tabs[0];
+                const currentUrl = currentTab.url;
+                const currentTitle = currentTab.title;
+                // TO DO: possible description later - requires seperate content script
+                // const currentDescription = currentTab.description;
+
+                saveRecipes(currentUrl, selectedCategory, currentTitle);
                 categoryDropdown.style.display = "none";
             });
         });
@@ -72,17 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //Saved Recipes
-    function saveRecipes(url, category) {
+    function saveRecipes(url, category, title) {
         chrome.storage.local.get([category], (result) => {
             let recipes = result[category] || [];
 
-            if (!recipes.includes(url)) { //Does url exist in recipes
-                recipes.push(url); //Add recipe url
+            if (!recipes.some((recipe) => recipe.url === url)) {
+                recipes.push({ url, title });
                 chrome.storage.local.set({ [category]: recipes }, () => {
-                    console.log("Recipe saved in", category);
+                    console.log("Recipe saved:", { url, title });
                 });
             }
-        })
+        });
     }
 
     //Meal Categories
@@ -130,24 +135,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const recipes = result[category] || [];
             savedRecipes.innerHTML = "";
 
-            recipes.forEach((recipeUrl) => {
+            recipes.forEach((recipe) => {
                 const listItem = document.createElement("li");
                 listItem.className = "recipe-item";
 
                 const recipeLink = document.createElement("a");
-                recipeLink.href = recipeUrl;
-                recipeLink.textContent = recipeUrl;
+                recipeLink.href = recipe.url; 
+                recipeLink.textContent = recipe.title;
                 recipeLink.target = "_blank";
+                listItem.appendChild(recipeLink);
 
                 //Clone the single-saved-recipe template
                 const recipeControls = singleSavedRecipe.cloneNode(true);
-                recipeControls.style.display = "block"; // Make it visible
+                recipeControls.style.display = "block"; 
 
                 //Delete functionality
                 const deleteButton = recipeControls.querySelector("#delete-button");
                 deleteButton.addEventListener("click", (event) => {
                     event.preventDefault();
-                    deleteRecipe(recipeUrl, category);
+                    deleteRecipe(recipe.url, category); 
                 });
 
                 listItem.appendChild(recipeLink);

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Meal Plan Extension",
   "description": "Extension to help plan your meals",
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "activeTab"],
   "version": "1.0",
   "action": {
     "default_popup": "popup.html",
