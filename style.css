@@ -239,6 +239,10 @@ img {
     width: 300px;
 }
 
+ul {
+    margin-bottom: 0;
+}
+
 #saved-recipes li {
     margin-bottom: 10px; 
     width: 86.5%; 
