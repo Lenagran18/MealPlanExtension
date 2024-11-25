@@ -96,11 +96,11 @@ h3 {
 }
 
 .popup-body {
+    max-height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 0px;
     background-color: #f0f6ff;
     color: #253237;
 }
@@ -205,6 +205,16 @@ img {
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
+}
+
+#meal-categories-view .popup-body {
+    max-height: 270px; 
+    overflow-y: auto; /* Scrolling */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    background-color: #f0f6ff;
 }
 
 #category-icon {
