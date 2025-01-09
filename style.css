@@ -1,4 +1,5 @@
 /* MAIN PAGE */
+/* TODO: Clean this up - add general styles */
 
 body {
     width: 300px; 
@@ -298,4 +299,31 @@ ul {
 
 #move-button:hover {
     color: #707577;
+}
+
+.recipe-item {
+    display: flex;
+    align-items: center; 
+    border-bottom: 1px solid #eee;
+}
+
+.recipe-image-container {
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 0px;
+}
+
+.recipe-image {
+    border-radius: 0px;
+    align-items: center;
+    object-fit: cover;
+}
+
+.recipe-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
