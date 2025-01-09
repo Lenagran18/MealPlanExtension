@@ -42,16 +42,37 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const recipeManager = {
+
+        async getFirstImage() {
+            try {
+                // Get the active tab
+                const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                const [{ result }] = await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    //getter function for the src attribute of the first image on the page
+                    function: () => {
+                        const img = document.querySelector('img');
+                        return img ? img.src : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
+                    }
+                });
+                return result;
+            } catch (error) {
+                console.error("Error getting image:", error);
+                return null;
+            }
+        },
+
         // Save recipe to local storage
         async saveRecipe(url, category, title) {
             try {
+                const imageUrl = await this.getFirstImage();
                 const result = await chrome.storage.local.get([category]);
                 let recipes = result[category] || [];
 
                 if (!recipes.some(recipe => recipe.url === url)) {
-                    recipes.push({ url, title });
+                    recipes.push({ url, title, imageUrl });
                     await chrome.storage.local.set({ [category]: recipes });
-                    console.log("Recipe saved:", { url, title });
+                    console.log("Recipe saved:", { url, title, imageUrl });
                 }
             } catch (error) {
                 console.error("Error saving recipe:", error);
@@ -94,6 +115,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const listItem = document.createElement("li");
             listItem.className = "recipe-item";
 
+            // Create recipe image container
+            if (recipe.imageUrl) {
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "recipe-image-container";
+                const image = document.createElement("img");
+                image.src = recipe.imageUrl;
+                image.alt = recipe.title;
+                image.className = "recipe-image";
+                imageContainer.appendChild(image);
+                listItem.appendChild(imageContainer);
+            }
+
+            const infoContainer = document.createElement("div");
+            infoContainer.className = "recipe-info";
+
             const recipeLink = document.createElement("a");
             recipeLink.href = recipe.url;
             recipeLink.textContent = recipe.title;
@@ -110,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             listItem.appendChild(recipeControls);
+            listItem.appendChild(infoContainer);
             return listItem;
         }
     };
