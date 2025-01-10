@@ -1,5 +1,4 @@
 /* MAIN PAGE */
-/* TODO: Clean this up - add general styles */
 
 body {
     width: 300px; 
@@ -87,6 +86,7 @@ h2 {
 
 .category-option:hover {
     background-color: #f0f6ff;
+    border-radius: 8px;
 }
 
 h3 {
@@ -160,6 +160,7 @@ h3 {
     height: 65px;
     border: 1px solid #B4D6E7;
 }
+
 .top-buttons {
     display: grid;
     grid-gap: 10px;
@@ -240,10 +241,6 @@ img {
     width: 300px;
 }
 
-ul {
-    margin-bottom: 0;
-}
-
 #saved-recipes li {
     margin-bottom: 10px; 
     width: 86.5%; 
@@ -258,11 +255,23 @@ ul {
 #saved-recipes a {
     text-decoration: none;
     color: #253237; 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     display: block;
-    width: 260px;
     overflow: hidden;
+}
+
+.recipe-image-container {
+    margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.recipe-image {
+    border-radius: 0px;
+    object-fit: cover;
 }
 
 #single-saved-recipe {
@@ -299,31 +308,4 @@ ul {
 
 #move-button:hover {
     color: #707577;
-}
-
-.recipe-item {
-    display: flex;
-    align-items: center; 
-    border-bottom: 1px solid #eee;
-}
-
-.recipe-image-container {
-    margin-right: 15px;
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-radius: 0px;
-}
-
-.recipe-image {
-    border-radius: 0px;
-    align-items: center;
-    object-fit: cover;
-}
-
-.recipe-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 }
