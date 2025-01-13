@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const [{ result }] = await chrome.scripting.executeScript({
                     target: { tabId: tab.id },
                     //getter function for the src attribute of the first image on the page
+                    //TO DO: Doesnt always work, when url empty, pintresturl, testing for more cases 
                     function: () => {
                         const img = document.querySelector('img');
                         return img ? img.src : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
@@ -104,6 +105,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 recipes.forEach(recipe => {
                     const listItem = this.createRecipeListItem(recipe, category);
                     elements.savedRecipes.appendChild(listItem);
+
+                    // Add drag and drop event listeners to the container
+                    // event will continuously fire to update the position of the dropped item
+                    elements.savedRecipes.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        const draggingItem = elements.savedRecipes.querySelector('.dragging');
+                        const siblings = [...elements.savedRecipes.querySelectorAll('.recipe-item:not(.dragging)')];
+                        const nextSibling = siblings.find(sibling => {
+                            const rect = sibling.getBoundingClientRect(); // Dimensions of all elements not dragged
+                            const midPoint = rect.top + rect.height / 2; // Middle of the sibling
+                            return e.clientY < midPoint; // Check if mouse is above the middle of the sibling
+                        });
+
+                        if (nextSibling) {
+                            elements.savedRecipes.insertBefore(draggingItem, nextSibling);
+                        } else {
+                            elements.savedRecipes.appendChild(draggingItem);
+                        }
+                    });
+
+                    // Drop event listener to update the order of the recipes
+                    elements.savedRecipes.addEventListener('drop', async (e) => {
+                        e.preventDefault();
+                        const droppedUrl = e.dataTransfer.getData('text/plain');
+
+                        // Get new order of recipes
+                        const newOrder = [...elements.savedRecipes.querySelectorAll('.recipe-item')].map(item => {
+                            const url = item.querySelector('a').href;
+                            return recipes.find(recipe => recipe.url === url);
+                        });
+
+                        // Update storage with new order
+                        await this.updateRecipeOrder(category, newOrder);
+                    });
                 });
             } catch (error) {
                 console.error("Error displaying recipes:", error);
@@ -114,6 +149,18 @@ document.addEventListener("DOMContentLoaded", () => {
         createRecipeListItem(recipe, category) {
             const listItem = document.createElement("li");
             listItem.className = "recipe-item";
+            listItem.draggable = true;
+
+            // Drag event listeners
+            listItem.addEventListener('dragstart', (e) => {
+                // Recipe data stored in drag event
+                e.dataTransfer.setData('text/plain', recipe.url); 
+                listItem.classList.add('dragging');
+            });
+
+            listItem.addEventListener('dragend', () => {
+                listItem.classList.remove('dragging');
+            });
 
             // Create recipe image container
             if (recipe.imageUrl) {
@@ -145,10 +192,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.deleteRecipe(recipe.url, category);
             });
 
+            const moveButton = recipeControls.querySelector("#move-button");
+            moveButton.style.cursor = "grab";
+
             listItem.appendChild(recipeControls);
             listItem.appendChild(infoContainer);
             return listItem;
-        }
+        }, 
+
+        // Save new order to Chrome
+        async updateRecipeOrder(category, recipes) {
+            try {
+                await chrome.storage.local.set({ [category]: recipes });
+                console.log("Order updated");
+            } catch (error) {
+                console.error("Error updating recipe order:", error);
+            }
+        },
     };
 
     //buttons and search functionality

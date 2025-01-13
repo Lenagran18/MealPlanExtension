@@ -304,8 +304,18 @@ img {
 
 #move-button {
     color: #253237;
+    cursor: grab;
 }
 
 #move-button:hover {
     color: #707577;
+}
+
+.recipe-item.dragging {
+    opacity: 0.5;
+    background-color: #f5f5f5;
+}
+
+#move-button:active {
+    cursor: grabbing;
 }
