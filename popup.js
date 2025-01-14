@@ -64,6 +64,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const recipeManager = {
 
+        notify(message) {
+            const notification = document.createElement('div');
+            notification.className = `notification`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 1500);
+        },
+
         async getFirstImage() {
             try {
                 // Get the active tab
@@ -100,9 +108,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 let recipes = result[category] || [];
 
                 if (!recipes.some(recipe => recipe.url === url)) {
-                    recipes.push({ url, title, imageUrl });
+                    recipes.push({
+                        url,
+                        title,
+                        imageUrl
+                    });
+
                     await chrome.storage.local.set({ [category]: recipes });
+                    this.notify(`Recipe saved successfully to ${category}`);
                     console.log("Recipe saved:", { url, title, imageUrl });
+                    
+                } else {
+                    this.notify(`Recipe already saved to ${category}`);
                 }
             } catch (error) {
                 console.error("Error saving recipe:", error);
@@ -117,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 recipes = recipes.filter(recipe => recipe.url !== url);
 
                 await chrome.storage.local.set({ [category]: recipes });
+                this.notify(`Recipe deleted from ${category}`);
                 console.log("Recipe deleted from", category);
                 this.displaySavedRecipes(category);
             } catch (error) {
