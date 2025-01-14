@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // event will continuously fire to update the position of the dropped item
                     elements.savedRecipes.addEventListener('dragover', (e) => {
                         e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
                         const draggingItem = elements.savedRecipes.querySelector('.dragging');
                         const siblings = [...elements.savedRecipes.querySelectorAll('.recipe-item:not(.dragging)')];
                         const nextSibling = siblings.find(sibling => {
@@ -155,11 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
             listItem.addEventListener('dragstart', (e) => {
                 // Recipe data stored in drag event
                 e.dataTransfer.setData('text/plain', recipe.url); 
+                e.dataTransfer.effectAllowed = 'move'; 
                 listItem.classList.add('dragging');
+                document.documentElement.classList.add('dragging');
+                document.body.style.cursor = "grabbing"; 
             });
 
             listItem.addEventListener('dragend', () => {
                 listItem.classList.remove('dragging');
+                document.documentElement.classList.remove('dragging');
+                document.body.style.cursor = "grabbing"; 
             });
 
             // Create recipe image container

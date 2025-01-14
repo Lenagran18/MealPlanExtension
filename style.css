@@ -212,6 +212,7 @@ img {
 #meal-categories-view .popup-body {
     max-height: 270px; 
     overflow-y: auto; /* Scrolling */
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-start; 
@@ -304,18 +305,28 @@ img {
 
 #move-button {
     color: #253237;
-    cursor: grab;
+    cursor: grab !important;
 }
 
 #move-button:hover {
     color: #707577;
 }
 
+.recipe-item:active, 
 .recipe-item.dragging {
     opacity: 0.5;
     background-color: #f5f5f5;
+    cursor: grabbing !important;
 }
 
-#move-button:active {
+[draggable="true"] {
+    cursor: grab;
+}
+
+[draggable="true"]:active {
     cursor: grabbing;
+}
+
+html.dragging * {
+    cursor: grabbing !important;
 }
