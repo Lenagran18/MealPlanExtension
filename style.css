@@ -305,28 +305,19 @@ img {
 
 #move-button {
     color: #253237;
-    cursor: grab !important;
+    cursor: grab;
 }
 
-#move-button:hover {
-    color: #707577;
+#move-button:active {
+    cursor: grabbing !important;
 }
 
-.recipe-item:active, 
-.recipe-item.dragging {
+.recipe-item.dragging {  
     opacity: 0.5;
     background-color: #f5f5f5;
     cursor: grabbing !important;
 }
 
-[draggable="true"] {
-    cursor: grab;
-}
-
-[draggable="true"]:active {
-    cursor: grabbing;
-}
-
-html.dragging * {
+html.dragging {
     cursor: grabbing !important;
 }

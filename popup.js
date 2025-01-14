@@ -188,13 +188,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.dataTransfer.effectAllowed = 'move'; 
                 listItem.classList.add('dragging');
                 document.documentElement.classList.add('dragging');
-                document.body.style.cursor = "grabbing"; 
             });
 
             listItem.addEventListener('dragend', () => {
                 listItem.classList.remove('dragging');
                 document.documentElement.classList.remove('dragging');
-                document.body.style.cursor = "grabbing"; 
             });
 
             // Create recipe image container
@@ -228,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const moveButton = recipeControls.querySelector("#move-button");
-            moveButton.style.cursor = "grab";
 
             listItem.appendChild(recipeControls);
             listItem.appendChild(infoContainer);
