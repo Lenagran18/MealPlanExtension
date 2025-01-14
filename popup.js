@@ -40,23 +40,23 @@ document.addEventListener("DOMContentLoaded", () => {
             elements.categoryDropdown.style.display = "none";
         },
 
-        updateHeaderTitle(){
+        updateHeaderTitle() {
             const currentTime = new Date().getHours();
             console.log("Current time:", currentTime);
             let mealTime;
 
-            if(currentTime >= 0 && currentTime < 11){
+            if (currentTime >= 0 && currentTime < 11) {
                 mealTime = "breakfast";
-            } else if(currentTime >= 11 && currentTime < 16){
+            } else if (currentTime >= 11 && currentTime < 16) {
                 mealTime = "lunch";
-            } else if(currentTime >= 16 && currentTime < 21){
+            } else if (currentTime >= 16 && currentTime < 21) {
                 mealTime = "dinner";
-            } else if (currentTime >= 21 && currentTime < 24){
+            } else if (currentTime >= 21 && currentTime < 24) {
                 mealTime = "dessert";
             } else {
                 mealTime = "dinner";
             }
-    
+
             const mainViewTitle = document.getElementById("main-view-header");
             mainViewTitle.textContent = `What's for ${mealTime}?`;
         }
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return result;
             } catch (error) {
                 console.error("Error getting image:", error);
-                return 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png'; 
+                return 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
             }
         },
 
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     await chrome.storage.local.set({ [category]: recipes });
                     this.notify(`Recipe saved successfully to ${category}`);
                     console.log("Recipe saved:", { url, title, imageUrl });
-                    
+
                 } else {
                     this.notify(`Recipe already saved to ${category}`);
                 }
@@ -202,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // Drag event listeners
             listItem.addEventListener('dragstart', (e) => {
                 // Recipe data stored in drag event
-                e.dataTransfer.setData('text/plain', recipe.url); 
-                e.dataTransfer.effectAllowed = 'move'; 
+                e.dataTransfer.setData('text/plain', recipe.url);
+                e.dataTransfer.effectAllowed = 'move';
                 listItem.classList.add('dragging');
                 document.documentElement.classList.add('dragging');
             });
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
             listItem.appendChild(recipeControls);
             listItem.appendChild(infoContainer);
             return listItem;
-        }, 
+        },
 
         // Save new order to Chrome
         async updateRecipeOrder(category, recipes) {
@@ -272,14 +272,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         //Back button functionality
-        elements.backButton.addEventListener("click", function (event) { 
+        elements.backButton.addEventListener("click", function (event) {
             event.preventDefault();
             view.showMainView();
         });
 
         //Toggle save dropdown
-        elements.saveRecipeButton.addEventListener("click", function (event) { 
-            event.stopPropagation(); 
+        elements.saveRecipeButton.addEventListener("click", function (event) {
+            event.stopPropagation();
             view.toggleDropdown();
         });
 
@@ -291,11 +291,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         //Categories in category dropdown
-        elements. categoryOptions.forEach((option) => {
+        elements.categoryOptions.forEach((option) => {
             option.addEventListener("click", function () {
                 const selectedCategory = option.getAttribute("data-category");
 
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => { 
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     const { url, title } = tabs[0];
                     recipeManager.saveRecipe(url, selectedCategory, title);
                     view.hideDropdown();
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
             chrome.tabs.create({ url: url });
         });
-        
+
         //Meal Category buttons
         elements.categoryButtons.forEach((button) => {
             button.addEventListener("click", function (event) {
