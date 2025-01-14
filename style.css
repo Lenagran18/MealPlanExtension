@@ -143,8 +143,8 @@ h3 {
     height: 32px;
     width: 32px;
     border-radius: 50%;
-    position:absolute;
-    right:5px;
+    position: absolute;
+    right: 5px;
     background-color: #B4D6E7;
     border: none;
     cursor: pointer;
@@ -225,7 +225,7 @@ img {
 }
 
 #meal-categories-view .popup-body {
-    max-height: 270px; 
+    height: calc(100vh - 120px);
     overflow-y: auto; /* Scrolling */
     overflow-x: hidden;
     display: flex;
