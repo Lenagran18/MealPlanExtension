@@ -39,6 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
         hideDropdown() {
             elements.categoryDropdown.style.display = "none";
         },
+
+        updateHeaderTitle(){
+            const currentTime = new Date().getHours();
+            console.log("Current time:", currentTime);
+            let mealTime;
+
+            if(currentTime >= 0 && currentTime < 11){
+                mealTime = "breakfast";
+            } else if(currentTime >= 11 && currentTime < 16){
+                mealTime = "lunch";
+            } else if(currentTime >= 16 && currentTime < 21){
+                mealTime = "dinner";
+            } else if (currentTime >= 21 && currentTime < 24){
+                mealTime = "dessert";
+            } else {
+                mealTime = "dinner";
+            }
+    
+            const mainViewTitle = document.getElementById("main-view-header");
+            mainViewTitle.textContent = `What's for ${mealTime}?`;
+        }
     };
 
     const recipeManager = {
@@ -291,6 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
-    
+    view.updateHeaderTitle();
     initializeEventListeners();
 });
