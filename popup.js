@@ -50,16 +50,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 const [{ result }] = await chrome.scripting.executeScript({
                     target: { tabId: tab.id },
                     //getter function for the src attribute of the first image on the page
-                    //TO DO: Doesnt always work, when url empty, pintresturl, testing for more cases 
                     function: () => {
                         const img = document.querySelector('img');
-                        return img ? img.src : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
+                        if (img) {
+                            const imgUrl = img.src;
+
+                            // Check if image URL is valid
+                            if (imgUrl && (imgUrl.startsWith('http'))) {
+                                return imgUrl;
+                            }
+                        }
+                        // Return default image if no valid image is found
+                        return 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
                     }
                 });
                 return result;
             } catch (error) {
                 console.error("Error getting image:", error);
-                return null;
+                return 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png'; 
             }
         },
 
@@ -146,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         },
 
-        // Create saved recipe list item - title, url, and delete button
+        // Create saved recipe list item - title, image, move button and delete button
         createRecipeListItem(recipe, category) {
             const listItem = document.createElement("li");
             listItem.className = "recipe-item";
